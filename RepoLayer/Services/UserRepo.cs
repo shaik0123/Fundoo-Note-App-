@@ -5,6 +5,7 @@ using RepoLayer.Entity;
 using RepoLayer.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace RepoLayer.Services
@@ -47,6 +48,27 @@ namespace RepoLayer.Services
             {
                 throw (ex);
             }
+
+        }
+        public UserEntity UserLogin(UserLoginModel loginModel)
+        {
+            try
+            {
+                var userEntity = fundooContext.Users.FirstOrDefault(x => x.Email == loginModel.Email && x.Password == loginModel.Password);
+
+
+                if (userEntity != null)
+                {
+                   
+                    return userEntity;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
 
         }
     }

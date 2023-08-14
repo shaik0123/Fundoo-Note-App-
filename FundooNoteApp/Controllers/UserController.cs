@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Interface;
+using BusinessLayer.Services;
 using CommonLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,22 @@ namespace FundooNoteApp.Controllers
             else
             {
                 return BadRequest(new { success = false, messege = "User Registration UnSuccessful", data = result });
+            }
+
+        }
+        [HttpPost]
+        [Route("Login")]
+        public IActionResult Login(UserLoginModel loginModel)
+        {
+            var result = _userBusiness.UserLogin(loginModel);
+            if (result != null)
+            {
+                return Ok(new { success = true, messege = "User Login Successfull", data = result });
+            }
+            else
+            {
+                return Unauthorized(new { messeg = "Password incorrect " });
+
             }
 
         }
