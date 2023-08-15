@@ -92,5 +92,30 @@ namespace RepoLayer.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+        public string ForgotPassword(string email,string newPassword, string confirmPassword)
+        {
+            try
+            {
+                var emailValidity = fundooContext.Users.FirstOrDefault(u => u.Email == email);
+                if (emailValidity != null)
+                {
+                   if(newPassword == confirmPassword)
+                   {
+                        emailValidity.Password = confirmPassword;
+                        fundooContext.Users.Update(emailValidity);
+                        fundooContext.SaveChanges();
+                        return emailValidity.Password;
+                   }
+                    return null;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
     }
+   
 }

@@ -46,5 +46,21 @@ namespace FundooNoteApp.Controllers
             }
 
         }
+        [HttpPatch]
+        [Route("ForgotPassword")]
+        public IActionResult ForgotPassword(string email,string newPassword,string confirmPassword)
+        {
+            var result = _userBusiness.ForgotPassword(email,newPassword,confirmPassword);
+            if (result != null)
+            {
+                return Ok(new { success = true, messege = "User Password reset success" });
+            }
+            else
+            {
+                return NotFound(new { messeg = "Credentials not exist" });
+
+            }
+
+        }
     }
 }
