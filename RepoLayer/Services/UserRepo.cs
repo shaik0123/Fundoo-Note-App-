@@ -81,7 +81,7 @@ namespace RepoLayer.Services
             var claims = new List<Claim>
             {
             new Claim("UserId", UserId.ToString()),
-            new Claim("Email", Email),
+            new Claim(ClaimTypes.Email, Email),
                 // Add any other claims you want to include in the token
             };
 
@@ -92,21 +92,19 @@ namespace RepoLayer.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        public string ForgotPassword(string email,string newPassword, string confirmPassword)
+        public string ForgotPassword(ForgotPasswordModel forgotPasswordModel)
         {
             try
             {
-                var emailValidity = fundooContext.Users.FirstOrDefault(u => u.Email == email);
+                var emailValidity = fundooContext.Users.FirstOrDefault(u => u.Email == forgotPasswordModel.Email);
                 if (emailValidity != null)
                 {
-                   if(newPassword == confirmPassword)
-                   {
-                        emailValidity.Password = confirmPassword;
-                        fundooContext.Users.Update(emailValidity);
-                        fundooContext.SaveChanges();
-                        return emailValidity.Password;
-                   }
-                    return null;
+                    var token = GenerateJwtToken(emailValidity.Email, emailValidity.UserId);
+                    MSMQ msmq = new MSMQ();
+                    msmq.sendData2Queue(token);
+
+
+                    return token;
                 }
                 return null;
             }
@@ -115,6 +113,34 @@ namespace RepoLayer.Services
                 throw ex;
             }
 
+        }
+        public bool ResetPassword(string email, string newpassword, string confirmPassword)
+        {
+            try
+            {
+                if (newpassword == confirmPassword)
+                {
+                    var isEmailPresent = fundooContext.Users.FirstOrDefault(u => u.Email == email);
+
+                    if (isEmailPresent != null)
+                    {
+
+                        isEmailPresent.Password = confirmPassword;
+                        fundooContext.Users.Update(isEmailPresent);
+                        fundooContext.SaveChanges();
+                        return true;
+                    }
+                }
+
+                return false;
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
    

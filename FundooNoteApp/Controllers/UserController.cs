@@ -1,8 +1,10 @@
 ﻿using BusinessLayer.Interface;
 using BusinessLayer.Services;
 using CommonLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace FundooNoteApp.Controllers
 {
@@ -48,19 +50,42 @@ namespace FundooNoteApp.Controllers
         }
         [HttpPatch]
         [Route("ForgotPassword")]
-        public IActionResult ForgotPassword(string email,string newPassword,string confirmPassword)
+        public IActionResult ForgotPassword(ForgotPasswordModel forgotPasswordModel)
         {
-            var result = _userBusiness.ForgotPassword(email,newPassword,confirmPassword);
+            var result = _userBusiness.ForgotPassword(forgotPasswordModel);
             if (result != null)
             {
-                return Ok(new { success = true, messege = "User Password reset success" });
+                return Ok(new {  messege = "Token Sent Success", });
             }
             else
             {
-                return NotFound(new { messeg = "Credentials not exist" });
+                return Unauthorized(new { messeg = "Credentials not exist" });
 
             }
 
+        }
+        [Authorize]
+        [HttpPut]
+        [Route("ResetPassword")]
+
+        public IActionResult ResetPassword(string newPassword, string ConfirmPassword)
+
+        {
+            var email = User.FindFirst(ClaimTypes.Email).Value;
+            if (email != null)
+            {
+                var result = _userBusiness.ResetPassword(email, newPassword, ConfirmPassword);
+                if (result == true)
+                {
+                    return Ok(new { success = true, message = "Reset Password  Successfully" });
+                }
+                else
+                {
+                    return Unauthorized(new { success = false, message = "Invalid Credentials Reset Password  UnSuccessfully " });
+                }
+
+            }
+            return null;
         }
     }
 }

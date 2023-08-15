@@ -10,7 +10,9 @@ namespace BusinessLayer.Interface
     {
         public UserEntity UserReg(UserRegModel model);
         public string UserLogin(UserLoginModel loginModel);
-        public string ForgotPassword(string email, string newPassword, string confirmPassword);
+        public string ForgotPassword(ForgotPasswordModel forgotPasswordModel);
+        public bool ResetPassword(string email, string newpassword, string confirmPassword);
+
 
 
     }

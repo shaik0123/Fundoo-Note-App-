@@ -40,11 +40,11 @@ namespace BusinessLayer.Services
                 throw;
             }
         }
-        public string ForgotPassword(string email, string newPassword, string confirmPassword)
+        public string ForgotPassword(ForgotPasswordModel forgotPasswordModel)
         {
             try
             {
-                return _userRepo.ForgotPassword(email, newPassword, confirmPassword);
+                return _userRepo.ForgotPassword(forgotPasswordModel);
             }
             catch (Exception)
             {
@@ -52,6 +52,19 @@ namespace BusinessLayer.Services
                 throw;
             }
         }
+        public bool ResetPassword(string email, string newpassword, string confirmPassword)
+        {
+            try
+            {
+                return _userRepo.ResetPassword(email, newpassword, confirmPassword);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
 
 
     }
