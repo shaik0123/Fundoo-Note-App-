@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 
 namespace FundooNoteApp.Controllers
 {
@@ -97,6 +98,91 @@ namespace FundooNoteApp.Controllers
                 return NotFound(new { success = false, messege = "Note Id Not Found", data = result });
             }
 
+        }
+        [Authorize]
+        [HttpPatch]
+        [Route("Colour")]
+        public IActionResult UpdateColour(long id, string colour)
+        {
+            long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+            var result = _noteBusiness.UpdateColour(id, colour, userId);
+            if (result != null)
+            {
+                return Ok(new { success = true, messege = "Colour Update  Sucessfully", data = result });
+            }
+            else
+            {
+                return NotFound(new { success = false, messege = "Id's Not Found", data = result });
+            }
+
+
+        }
+        [Authorize]
+        [HttpPatch]
+        [Route("AddImage")]
+        public async Task<IActionResult> AddImage(long id, IFormFile imageFile)
+        {
+            long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+            Tuple<int, string> result = await _noteBusiness.Image(id, userId, imageFile);
+            if (result.Item1 == 1)
+            {
+                return Ok(new { success = true, messege = "Image Update  Sucessfully", data = result });
+            }
+            else
+            {
+                return NotFound(new { success = false, messege = "Image Update  Unucessfully", data = result });
+            }
+        }
+        [Authorize]
+        [HttpPatch]
+        [Route("Archive")]
+        public IActionResult Archive(long id)
+        {
+            long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+            var result = _noteBusiness.Archive(id, userId);
+            if (result == true)
+            {
+                return Ok(new { success = true, messege = "Archive Sucessfully", data = result });
+            }
+            else
+            {
+                return NotFound(new { success = false, messege = "Id's Not Found", data = result });
+            }
+
+        }
+        [Authorize]
+        [HttpPatch]
+        [Route("Pin")]
+        public IActionResult Pin(long id)
+        {
+            long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+            var result = _noteBusiness.Pin(id, userId);
+            if (result == true)
+            {
+                return Ok(new { success = true, messege = "pin Sucessfully", data = result });
+            }
+            else
+            {
+                return NotFound(new { success = false, messege = "Id's Not Found", data = result });
+            }
+
+
+        }
+        [Authorize]
+        [HttpPatch]
+        [Route("Trash")]
+        public IActionResult Trash(long id)
+        {
+            long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+            var result = _noteBusiness.Trash(id, userId);
+            if (result == true)
+            {
+                return Ok(new { success = true, messege = "Trash Sucessfully", data = result });
+            }
+            else
+            {
+                return NotFound(new { success = false, messege = "Id's Not Found", data = result });
+            }
         }
     }
 }

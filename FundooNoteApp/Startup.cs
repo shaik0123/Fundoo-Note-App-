@@ -1,5 +1,6 @@
 using BusinessLayer.Interface;
 using BusinessLayer.Services;
+using CloudinaryDotNet;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,6 +43,7 @@ namespace FundooNoteApp
             services.AddTransient<IUserRepo, UserRepo>();
             services.AddTransient<INoteBusiness, NoteBusiness>();
             services.AddTransient<INoteRepo, NoteRepo>();
+            services.AddTransient<FileService, FileService>();
 
             services.AddSwaggerGen(c =>
             {
@@ -75,6 +77,15 @@ namespace FundooNoteApp
                 });
             });
 
+            //cloudinary
+            IConfigurationSection configurationSection = Configuration.GetSection("CloudinaryConnection");
+            Account cloudinaryAccount = new Account(
+                configurationSection["cloud_name"],
+                configurationSection["cloud_api_key"],
+                configurationSection["cloud_api_secret"]
+                );
+            Cloudinary cloudinary = new Cloudinary(cloudinaryAccount);
+            services.AddSingleton(cloudinary);
             // Configure JWT authentication
             var jwtSettings = Configuration.GetSection("JwtSettings");
             var key = Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]);
