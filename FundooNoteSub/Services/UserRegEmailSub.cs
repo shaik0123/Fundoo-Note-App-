@@ -29,7 +29,7 @@ namespace FundooNoteSub.Services
                 using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com"))
                 {
                     smtpClient.Port = 587;
-                    smtpClient.Credentials = new NetworkCredential("shaik.ismail8563@gmail.com", "jtlicbixeacrsept");
+                    smtpClient.Credentials = new NetworkCredential("shaik.ismail8563@gmail.com", "vehkmlghkgfqrhck");
                     smtpClient.EnableSsl = true;
 
                     // Create the email message

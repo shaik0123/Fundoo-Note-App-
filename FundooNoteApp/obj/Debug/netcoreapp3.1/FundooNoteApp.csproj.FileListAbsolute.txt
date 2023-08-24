@@ -91,3 +91,8 @@ C:\Users\91951\source\repos\FundooNoteApp\FundooNoteApp\bin\Debug\netcoreapp3.1\
 C:\Users\91951\source\repos\FundooNoteApp\FundooNoteApp\bin\Debug\netcoreapp3.1\System.Threading.Channels.dll
 C:\Users\91951\source\repos\FundooNoteApp\FundooNoteApp\bin\Debug\netcoreapp3.1\FundooNoteSub.dll
 C:\Users\91951\source\repos\FundooNoteApp\FundooNoteApp\bin\Debug\netcoreapp3.1\FundooNoteSub.pdb
+C:\Users\91951\source\repos\FundooNoteApp\FundooNoteApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+C:\Users\91951\source\repos\FundooNoteApp\FundooNoteApp\bin\Debug\netcoreapp3.1\Pipelines.Sockets.Unofficial.dll
+C:\Users\91951\source\repos\FundooNoteApp\FundooNoteApp\bin\Debug\netcoreapp3.1\StackExchange.Redis.dll
+C:\Users\91951\source\repos\FundooNoteApp\FundooNoteApp\bin\Debug\netcoreapp3.1\System.Diagnostics.PerformanceCounter.dll
+C:\Users\91951\source\repos\FundooNoteApp\FundooNoteApp\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Diagnostics.PerformanceCounter.dll

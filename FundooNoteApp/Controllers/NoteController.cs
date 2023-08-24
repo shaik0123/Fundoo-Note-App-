@@ -6,6 +6,10 @@ using System.Linq;
 using System;
 using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
+using RepoLayer.Entity;
+using System.Collections.Generic;
 
 namespace FundooNoteApp.Controllers
 {
@@ -14,9 +18,11 @@ namespace FundooNoteApp.Controllers
     public class NoteController : ControllerBase
     {
         private readonly INoteBusiness _noteBusiness;
-        public NoteController(INoteBusiness noteBusiness)
+        private readonly IDistributedCache _distributedCache;
+        public NoteController(INoteBusiness noteBusiness, IDistributedCache distributedCache)
         {
             _noteBusiness = noteBusiness;
+            _distributedCache = distributedCache;
         }
         [Authorize]
         [HttpPost]
@@ -37,7 +43,7 @@ namespace FundooNoteApp.Controllers
         [Authorize]
         [HttpGet]
         [Route("AllNotes")]
-        public IActionResult GetAllNotes()
+        public IActionResult AllNotes()
         {
             long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
 
@@ -54,7 +60,7 @@ namespace FundooNoteApp.Controllers
         [Authorize]
         [HttpGet]
         [Route("NoteById")]
-        public IActionResult GetNoteById(long id)
+        public IActionResult NoteById(long id)
         {
             var result = _noteBusiness.GetNoteById(id);
             if (result != null)
@@ -70,7 +76,7 @@ namespace FundooNoteApp.Controllers
         [Authorize]
         [HttpPatch]
         [Route("NoteById")]
-        public IActionResult UpdateNoteById(long id, string takeNote)
+        public IActionResult NoteById(long id, string takeNote)
         {
             var result = _noteBusiness.UpdateNote(id, takeNote);
             if (result != null)
@@ -86,7 +92,7 @@ namespace FundooNoteApp.Controllers
         [Authorize]
         [HttpDelete]
         [Route("Note")]
-        public IActionResult DeleteNote(long id)
+        public IActionResult Note(long id)
         {
             var result = _noteBusiness.DeleteNote(id);
             if (result != 0)
@@ -102,7 +108,7 @@ namespace FundooNoteApp.Controllers
         [Authorize]
         [HttpPatch]
         [Route("Colour")]
-        public IActionResult UpdateColour(long id, string colour)
+        public IActionResult Colour(long id, string colour)
         {
             long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
             var result = _noteBusiness.UpdateColour(id, colour, userId);
@@ -120,7 +126,7 @@ namespace FundooNoteApp.Controllers
         [Authorize]
         [HttpPatch]
         [Route("AddImage")]
-        public async Task<IActionResult> AddImage(long id, IFormFile imageFile)
+        public async Task<IActionResult> Image(long id, IFormFile imageFile)
         {
             long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
             Tuple<int, string> result = await _noteBusiness.Image(id, userId, imageFile);
@@ -182,6 +188,43 @@ namespace FundooNoteApp.Controllers
             else
             {
                 return NotFound(new { success = false, messege = "Id's Not Found", data = result });
+            }
+        }
+        [Authorize]
+        [HttpGet]
+        [Route("AllNotesByRedis")]
+        public async Task<IActionResult> AllNotesByRadis()
+        {
+            var cacheKey = "NoteList";
+            string serializeNoteList;
+            List<NoteEntity> notesList;
+
+            var redisNoteList = await _distributedCache.GetStringAsync(cacheKey);
+            if (redisNoteList != null)
+            {
+                notesList = JsonConvert.DeserializeObject<List<NoteEntity>>(redisNoteList);
+            }
+            else
+            {
+                long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+                notesList = _noteBusiness.GetAllNotes(userId);
+                serializeNoteList = JsonConvert.SerializeObject(notesList);
+
+                await _distributedCache.SetStringAsync(cacheKey, serializeNoteList, new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10),
+                    SlidingExpiration = TimeSpan.FromMinutes(2)
+
+                });
+            }
+
+            if (notesList != null)
+            {
+                return Ok(new { success = true, messege = "Get All Notes Sucessfully", data = notesList });
+            }
+            else
+            {
+                return NotFound(new { success = false, messege = "Notes Not Found", data = notesList });
             }
         }
     }

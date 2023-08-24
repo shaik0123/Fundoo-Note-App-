@@ -84,6 +84,10 @@
               "target": "Package",
               "version": "[3.1.0, )"
             },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
             "Microsoft.Owin.Host.SystemWeb": {
               "target": "Package",
               "version": "[3.1.0, )"
@@ -193,6 +197,10 @@
               "target": "Package",
               "version": "[3.1.0, )"
             },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
             "Microsoft.Owin.Host.SystemWeb": {
               "target": "Package",
               "version": "[3.1.0, )"
@@ -273,6 +281,10 @@
             "MassTransit.RabbitMQ": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[3.1.0, )"
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
@@ -399,6 +411,10 @@
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
               "target": "Package",
               "version": "[3.1.0, )"
             },
