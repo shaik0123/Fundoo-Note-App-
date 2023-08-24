@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using RabbitMQ.Client;
 using RepoLayer.Context;
 using RepoLayer.Interface;
 using RepoLayer.Services;
@@ -44,6 +45,12 @@ namespace FundooNoteApp
             services.AddTransient<INoteBusiness, NoteBusiness>();
             services.AddTransient<INoteRepo, NoteRepo>();
             services.AddTransient<FileService, FileService>();
+            services.AddSingleton<RabbitMQPublisher>(_ => new RabbitMQPublisher(new ConnectionFactory
+            {
+                HostName = Configuration["RabbitMQSettings:HostName"],
+                UserName = Configuration["RabbitMQSettings:UserName"],
+                Password = Configuration["RabbitMQSettings:Password"]
+            })); ;
 
             services.AddSwaggerGen(c =>
             {

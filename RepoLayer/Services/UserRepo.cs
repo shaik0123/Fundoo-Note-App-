@@ -1,6 +1,8 @@
 ﻿using CommonLayer.Models;
+using FundooNoteSub.Model;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using RepoLayer.Context;
 using RepoLayer.Entity;
 using RepoLayer.Interface;
@@ -17,11 +19,13 @@ namespace RepoLayer.Services
     {
         private readonly FundooContext fundooContext;
         private readonly IConfiguration configuration;
+        private readonly RabbitMQPublisher rabbitMQPublisher;
        
-        public UserRepo(FundooContext fundooContext, IConfiguration configuration)
+        public UserRepo(FundooContext fundooContext, IConfiguration configuration, RabbitMQPublisher rabbitMQPublisher)
         {
             this.fundooContext = fundooContext;
             this.configuration = configuration;
+            this.rabbitMQPublisher = rabbitMQPublisher;
 
             
         }
@@ -42,6 +46,12 @@ namespace RepoLayer.Services
 
                 if (userEntity != null)
                 {
+                    var message = new UserRegMsg { Email = userEntity.Email };
+                    var messageJson = JsonConvert.SerializeObject(message);
+                    rabbitMQPublisher.PublishMessage("User-Registration-Queue", messageJson);
+                    // Example of sending a message to the RabbitMQ queue
+                    // Print a message to the console to verify
+                    Console.WriteLine($"Message sent to queue: {messageJson}");
                     return userEntity;
                 }
                 else

@@ -14,3 +14,9 @@ C:\Users\91951\source\repos\FundooNoteApp\RepoLayer\obj\Debug\netcoreapp3.1\Repo
 C:\Users\91951\source\repos\FundooNoteApp\RepoLayer\obj\Debug\netcoreapp3.1\RepoLayer.dll
 C:\Users\91951\source\repos\FundooNoteApp\RepoLayer\obj\Debug\netcoreapp3.1\RepoLayer.pdb
 C:\Users\91951\source\repos\FundooNoteApp\RepoLayer\obj\Debug\netcoreapp3.1\RepoLayer.genruntimeconfig.cache
+C:\Users\91951\source\repos\FundooNoteApp\RepoLayer\bin\Debug\netcoreapp3.1\FundooNoteSub.deps.json
+C:\Users\91951\source\repos\FundooNoteApp\RepoLayer\bin\Debug\netcoreapp3.1\FundooNoteSub.runtimeconfig.json
+C:\Users\91951\source\repos\FundooNoteApp\RepoLayer\bin\Debug\netcoreapp3.1\FundooNoteSub.runtimeconfig.dev.json
+C:\Users\91951\source\repos\FundooNoteApp\RepoLayer\bin\Debug\netcoreapp3.1\FundooNoteSub.exe
+C:\Users\91951\source\repos\FundooNoteApp\RepoLayer\bin\Debug\netcoreapp3.1\FundooNoteSub.dll
+C:\Users\91951\source\repos\FundooNoteApp\RepoLayer\bin\Debug\netcoreapp3.1\FundooNoteSub.pdb
