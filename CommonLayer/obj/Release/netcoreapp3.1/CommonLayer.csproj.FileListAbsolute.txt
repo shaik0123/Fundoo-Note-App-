@@ -1,0 +1,13 @@
+C:\Users\91951\source\repos\FundooNoteApp\CommonLayer\bin\Release\netcoreapp3.1\CommonLayer.deps.json
+C:\Users\91951\source\repos\FundooNoteApp\CommonLayer\bin\Release\netcoreapp3.1\CommonLayer.runtimeconfig.json
+C:\Users\91951\source\repos\FundooNoteApp\CommonLayer\bin\Release\netcoreapp3.1\CommonLayer.runtimeconfig.dev.json
+C:\Users\91951\source\repos\FundooNoteApp\CommonLayer\bin\Release\netcoreapp3.1\CommonLayer.dll
+C:\Users\91951\source\repos\FundooNoteApp\CommonLayer\bin\Release\netcoreapp3.1\CommonLayer.pdb
+C:\Users\91951\source\repos\FundooNoteApp\CommonLayer\obj\Release\netcoreapp3.1\CommonLayer.csproj.AssemblyReference.cache
+C:\Users\91951\source\repos\FundooNoteApp\CommonLayer\obj\Release\netcoreapp3.1\CommonLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\91951\source\repos\FundooNoteApp\CommonLayer\obj\Release\netcoreapp3.1\CommonLayer.AssemblyInfoInputs.cache
+C:\Users\91951\source\repos\FundooNoteApp\CommonLayer\obj\Release\netcoreapp3.1\CommonLayer.AssemblyInfo.cs
+C:\Users\91951\source\repos\FundooNoteApp\CommonLayer\obj\Release\netcoreapp3.1\CommonLayer.csproj.CoreCompileInputs.cache
+C:\Users\91951\source\repos\FundooNoteApp\CommonLayer\obj\Release\netcoreapp3.1\CommonLayer.dll
+C:\Users\91951\source\repos\FundooNoteApp\CommonLayer\obj\Release\netcoreapp3.1\CommonLayer.pdb
+C:\Users\91951\source\repos\FundooNoteApp\CommonLayer\obj\Release\netcoreapp3.1\CommonLayer.genruntimeconfig.cache

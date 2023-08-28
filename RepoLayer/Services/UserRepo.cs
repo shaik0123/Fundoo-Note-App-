@@ -46,12 +46,12 @@ namespace RepoLayer.Services
 
                 if (userEntity != null)
                 {
-                    var message = new UserRegMsg { Email = userEntity.Email };
+                   /* var message = new UserRegMsg { Email = userEntity.Email };
                     var messageJson = JsonConvert.SerializeObject(message);
                     rabbitMQPublisher.PublishMessage("User-Registration-Queue", messageJson);
                     // Example of sending a message to the RabbitMQ queue
                     // Print a message to the console to verify
-                    Console.WriteLine($"Message sent to queue: {messageJson}");
+                    Console.WriteLine($"Message sent to queue: {messageJson}");*/
                     return userEntity;
                 }
                 else

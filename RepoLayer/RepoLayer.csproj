@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20230825065620_CreateTables.cs" />
+    <Compile Remove="Migrations\20230825065620_CreateTables.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CloudinaryDotNet" Version="1.22.0" />
     <PackageReference Include="Experimental.System.Messaging" Version="1.1.0" />
     <PackageReference Include="MassTransit" Version="7.0.0" />
