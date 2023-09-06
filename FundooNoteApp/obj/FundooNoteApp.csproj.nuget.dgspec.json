@@ -327,6 +327,10 @@
               "target": "Package",
               "version": "[6.5.0, )"
             },
+            "System.Diagnostics.DiagnosticSource": {
+              "target": "Package",
+              "version": "[8.0.0-preview.7.23375.6, )"
+            },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[6.32.1, )"
@@ -487,6 +491,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Azure.Messaging.ServiceBus": {
+              "target": "Package",
+              "version": "[7.16.1, )"
+            },
             "CloudinaryDotNet": {
               "target": "Package",
               "version": "[1.22.0, )"
@@ -550,6 +558,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
+            },
+            "System.Diagnostics.DiagnosticSource": {
+              "target": "Package",
+              "version": "[8.0.0-preview.7.23375.6, )"
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",

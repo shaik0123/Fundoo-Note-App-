@@ -1,3 +1,4 @@
+using Azure.Messaging.ServiceBus;
 using BusinessLayer.Interface;
 using BusinessLayer.Services;
 using CloudinaryDotNet;
@@ -49,6 +50,12 @@ namespace FundooNoteApp
             services.AddTransient<INoteBusiness, NoteBusiness>();
             services.AddTransient<INoteRepo, NoteRepo>();
             services.AddTransient<FileService, FileService>();
+
+            services.AddTransient<MessageService, MessageService>();
+            services.AddTransient<ServiceBusClient>(_=> new ServiceBusClient(Configuration["AzureServiceBusConnectionString"]));
+            services.AddTransient<ServiceBusSender>(_ => _.GetService<ServiceBusClient>().CreateSender("passwordresetqueue"));
+
+
             services.AddSingleton<RabbitMQPublisher>(_ => new RabbitMQPublisher(new ConnectionFactory
             {
                 HostName = Configuration["RabbitMQSettings:HostName"],

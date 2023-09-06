@@ -20,12 +20,14 @@ namespace RepoLayer.Services
         private readonly FundooContext fundooContext;
         private readonly IConfiguration configuration;
         private readonly RabbitMQPublisher rabbitMQPublisher;
+        private readonly MessageService messageService;
        
-        public UserRepo(FundooContext fundooContext, IConfiguration configuration, RabbitMQPublisher rabbitMQPublisher)
+        public UserRepo(FundooContext fundooContext, IConfiguration configuration, RabbitMQPublisher rabbitMQPublisher, MessageService messageService)
         {
             this.fundooContext = fundooContext;
             this.configuration = configuration;
             this.rabbitMQPublisher = rabbitMQPublisher;
+            this.messageService = messageService;
 
             
         }
@@ -110,8 +112,9 @@ namespace RepoLayer.Services
                 if (emailValidity != null)
                 {
                     var token = GenerateJwtToken(emailValidity.Email, emailValidity.UserId);
-                    MSMQ msmq = new MSMQ();
-                    msmq.sendData2Queue(token);
+                    /*MSMQ msmq = new MSMQ();
+                    msmq.sendData2Queue(token);*/
+                    messageService.SendMsgToQueue(emailValidity.Email, token);
 
 
                     return token;
