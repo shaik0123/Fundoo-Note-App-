@@ -50,6 +50,15 @@ namespace FundooNoteApp
             services.AddTransient<INoteBusiness, NoteBusiness>();
             services.AddTransient<INoteRepo, NoteRepo>();
             services.AddTransient<FileService, FileService>();
+            services.AddCors(data =>
+            {
+                data.AddPolicy(
+                    name: "AllowOrigin",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                    });
+            });
 
             services.AddTransient<MessageService, MessageService>();
             services.AddTransient<ServiceBusClient>(_=> new ServiceBusClient(Configuration["AzureServiceBusConnectionString"]));
@@ -154,6 +163,7 @@ namespace FundooNoteApp
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Register v1");
             });
+            app.UseCors("AllowOrigin");
         }
     }
 }
